@@ -17,10 +17,10 @@ function Error(){
         <h1>error 404 found</h1>
         <h2>{err.status}</h2>
         <h3>{err.statusText}</h3>
-        <p className="text-xl mt-4">Oops! Page not found.</p>
+        <p className="text-xl mt-4">click the home button</p>
 
         <Link to="/">
-        <button className="bg-orange-400 p-2 rounded text-xl mt-2 ">back to home</button>
+        <button className="bg-orange-400 p-2 rounded text-xl mt-2 ">Home</button>
         </Link>
        
         </div>

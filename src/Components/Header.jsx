@@ -1,23 +1,19 @@
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faMagnifyingGlassPlus, faTruck, faCartPlus, faSatellite, faBagShopping } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faMagnifyingGlassPlus, faTruck, faCartPlus, faSatellite, faBagShopping, faSign } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 function Header() {
   const cartitems = useSelector((store) => store.cart.items);
 
-  console.log("cartitems", cartitems);
   return (
     <>
       <div className="header-container">
-        {/* Logo */}
         <h1 className="header-logo">
           <FontAwesomeIcon icon={faSatellite} />
           <span className="header-logo-text">shoporbit</span>
         </h1>
 
-        {/* Nav Links */}
         <ul className="nav-links">
           <Link to="/">
             <li className="nav-item">
@@ -37,15 +33,21 @@ function Header() {
             </li>
           </Link>
 
-          <Link to="/Cart">
+          <Link to="/cart">              {/* ✅ lowercase */}
             <li className="nav-item">
               <FontAwesomeIcon icon={faCartPlus} /> Cart ({cartitems.length})
             </li>
           </Link>
 
-          <Link to="/Cartitem">
+          <Link to="/cartitem">          {/* ✅ lowercase */}
             <li className="nav-item">
               <FontAwesomeIcon icon={faBagShopping} /> Checkout
+            </li>
+          </Link>
+
+          <Link to="/signin">            {/* ✅ lowercase */}
+            <li className="nav-item">
+              <FontAwesomeIcon icon={faSign} /> Sign In
             </li>
           </Link>
         </ul>

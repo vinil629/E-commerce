@@ -4,6 +4,7 @@ function Practise({product}){
 
 
     const location=useLocation()
+  
 
     const {products}=location.state || {};
 

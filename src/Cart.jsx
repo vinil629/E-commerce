@@ -19,6 +19,7 @@ function Cart() {
   }
 
   return (
+    
     <div className="cart-container">
       {/* Header */}
       <div className="cart-header">
