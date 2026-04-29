@@ -14,7 +14,7 @@ const mysql=require("mysql2");
 
 app.use(express.json());
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:5174","https://your-project.vercel.app"],
+  origin: ["https://e-commerce-1-d13h.onrender.com/"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
