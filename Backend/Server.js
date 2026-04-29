@@ -1,38 +1,43 @@
-const express=require("express");
-const bcrypt=require('bcrypt');
-const jwt=require('jsonwebtoken');
-const bodyparser=require('body-parser');
+const express = require("express");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const cors = require("cors");
+const mysql = require("mysql2");
 
-
-const cors=require("cors");
-const app=express();
-
+const app = express();
 require('dotenv').config();
-
-const mysql=require("mysql2");
-
 
 app.use(express.json());
 app.use(cors({
   origin: [
     "http://localhost:5173",
     "http://localhost:5174",
-    "https://ecommercesite-ashen.vercel.app"  // ← correct URL
+    "https://ecommercesite-ashen.vercel.app"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
-app.get('/',(req,res)=>{
-    res.send('hello');
+
+app.get('/', (req, res) => {
+  res.send('hello');
 });
 
+// ✅ DB now uses environment variables
 const db = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: 'vinil@629',
-  database: 'items',
-  port: 3306,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
   connectionLimit: 10
+});
+
+db.getConnection((err, connection) => {
+  if (err) {
+    console.error("error while connecting", err);
+    return;
+  }
+  console.log("database connected ✅");
 });
 
 app.post('/register', async (req, res) => {
@@ -50,22 +55,10 @@ app.post('/register', async (req, res) => {
         console.log(err);
         return res.status(500).send("Database error");
       }
-
       console.log("User registered successfully");
       res.send("User registered successfully");
     }
   );
-});
-
-
-
-
-db.getConnection((err, connection) => {
-  if (err) {
-    console.error("error while connecting", err);
-    return;
-  }
-  console.log("database connected");
 });
 
 app.post('/login', (req, res) => {
@@ -92,7 +85,6 @@ app.post('/login', (req, res) => {
       return res.status(400).json({ message: "Password didn't match" });
     }
 
-    // ✅ all variables declared here — outside any if block
     const userpayload = { email: user.email };
 
     const token = jwt.sign(
@@ -115,9 +107,7 @@ app.post('/login', (req, res) => {
           console.log(err);
           return res.status(500).json({ message: "Database error" });
         }
-
         console.log("login successful");
-
         return res.json({
           message: "Login successful",
           token: token,
@@ -128,7 +118,7 @@ app.post('/login', (req, res) => {
   });
 });
 
-
-app.listen(5000,()=> {
-    console.log("hello its my ecommerce server");
-})
+// ✅ PORT now uses Render's dynamic port
+app.listen(process.env.PORT || 5000, () => {
+  console.log("Server running!");
+});
