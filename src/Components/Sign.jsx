@@ -10,7 +10,7 @@ function Sign(){
     const [name,setname]=useState("");
     const [email,setemail]=useState("");
     const [password,setpassword]=useState("");
-    // const [,serError]=useState("");
+  
 
     const navigate=useNavigate('/');
 
