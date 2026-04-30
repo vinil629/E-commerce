@@ -11,14 +11,13 @@ app.use(cors({
     const allowedOrigins = [
       "http://localhost:5173",
       "http://localhost:5174",
-      "https://e-commerce-uwqb.vercel.app"  // your fixed production URL
+      "https://e-commerce-uwqb.vercel.app"
     ];
 
-    // Allow all vercel preview URLs automatically
     if (
       !origin ||
       allowedOrigins.includes(origin) ||
-      /\.vercel\.app$/.test(origin)
+      /\.vercel\.app$/.test(origin)  // ✅ allows ALL vercel URLs forever
     ) {
       callback(null, true);
     } else {
@@ -28,10 +27,6 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
-
-app.get('/', (req, res) => {
-  res.send('hello');
-});
 
 // ✅ DB now uses environment variables
 const db = mysql.createPool({
