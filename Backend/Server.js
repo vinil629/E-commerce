@@ -10,9 +10,7 @@ app.use(cors({
   origin: [
     "http://localhost:5173",
     "http://localhost:5174",
-    "https://ecommercesite-ashen.vercel.app",
-    "https://e-commerce-jd3e.vercel.app",          // ✅ Add this
-    "https://e-commerce-jd3e-nw8dlo3qq-vinil629s-projects.vercel.app"  // ✅ Add this
+     "https://e-commerce-uwqb-7y8k5iegq-vinil629s-projects.vercel.app"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
