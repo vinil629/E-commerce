@@ -7,11 +7,24 @@ const mysql = require("mysql2");
 const app = express();
 require('dotenv').config();
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "http://localhost:5174",
-     "https://e-commerce-uwqb-7y8k5iegq-vinil629s-projects.vercel.app"
-  ],
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://e-commerce-uwqb.vercel.app"  // your fixed production URL
+    ];
+
+    // Allow all vercel preview URLs automatically
+    if (
+      !origin ||
+      allowedOrigins.includes(origin) ||
+      /\.vercel\.app$/.test(origin)
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
